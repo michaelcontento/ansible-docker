@@ -1,0 +1,7 @@
+- name: Write config
+  template:
+    src: etc-default-docker.j2
+    dest: /etc/default/docker
+    mode: 0644
+  notify:
+  - restart docker

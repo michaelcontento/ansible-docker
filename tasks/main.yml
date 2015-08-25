@@ -1,23 +1,9 @@
-- name: Add docker apt-key
-  apt_key:
-    id: A88D21E9
-    state: present
-    url: https://get.docker.com/gpg
+- name: Check if docker is already present
+  stat:
+    path: /usr/bin/docker
+  register: docker
 
-- name: Ensure curl is installed
-  apt:
-    pkg: curl
-    state: present
+- include: install.yml
+  when: not docker.stat.exists
 
-- name: Install docker
-  shell: curl -sSL https://get.docker.com/ | sh
-  args:
-    creates: /usr/bin/docker
-
-- name: Write config
-  template:
-    src: etc-default-docker.j2
-    dest: /etc/default/docker
-    mode: 0644
-  notify:
-  - restart docker
+- include: config.yml

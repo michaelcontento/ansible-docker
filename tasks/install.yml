@@ -1,0 +1,13 @@
+- name: Add docker apt-key
+  apt_key:
+    id: A88D21E9
+    state: present
+    url: https://get.docker.com/gpg
+
+- name: Ensure curl is installed
+  apt:
+    pkg: curl
+    state: present
+
+- name: Install docker
+  shell: curl -sSL https://get.docker.com/ | sh
