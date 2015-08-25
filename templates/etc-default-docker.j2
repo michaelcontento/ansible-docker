@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+#
+
+DOCKER_OPTS=""
+{% for opt in docker_opts %}
+DOCKER_OPTS="$DOCKER_OPTS {{ opt }}"
+{% endfor %}
+
+export DOCKER_OPTS
